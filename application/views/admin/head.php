@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Administrator Antrian Melinda</title>
+    <title>Administrator Antrian SSC ITTS</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url('asset'); ?>/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->

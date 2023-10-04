@@ -14,7 +14,7 @@
 			<br>
 			<br>
 			<br>
-			<h2 class="text-center">LOGIN</h2>
+			<h2 class="text-center">LOGIN ANTRIAN SSC ITTS</h2>
 			<hr>
 			<form id="form-login" method="post">
 			  <div class="form-group">

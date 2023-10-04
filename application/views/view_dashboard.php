@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Antrian Pendaftaran Pasien Melinda</title>
+	<title>Antrian SSC ITTS</title>
 	<?php $this->load->view('css'); ?>
 	<style type="text/css">
 	@media print {
@@ -38,7 +38,7 @@
 			<br><br><br><br><br><br><br>
 			<div class="card-deck shadow-lg p-3 mb-5 bg-white rounded" id="print-antri">
 			  <div class="card">
-			      <div class="card-header text-center">Melinda Hospital 1</div>
+			      <div class="card-header text-center">Antrian SSC ITTS</div>
 			  	<strong style="font-size: 80px; text-align: center;" id="no-waiting"><?= $data_waiting->nomor; ?></strong>
 			    <div class="card-body">
 			      <h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
@@ -53,7 +53,7 @@
 			<br><br><br><br><br><br><br>
 			<div class="card-deck shadow-lg p-3 mb-5 bg-white rounded" id="print-antri">
 			  <div class="card">
-			      <div class="card-header text-center">Melinda Hospital 1</div>
+			      <div class="card-header text-center">Antrian SSC ITTS</div>
 			  	<strong style="font-size: 80px; text-align: center;" id="no-servicing"><?= $data_servicing->nomor; ?></strong>
 			    <div class="card-body">
 			      <h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>

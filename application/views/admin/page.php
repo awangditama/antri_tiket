@@ -21,7 +21,7 @@
                         <!-- <b><img src="images/logo.png" alt="homepage" class="dark-logo" /></b> -->
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span><img src="<?= base_url() ?>asset/images/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                        <span><img src="<?= base_url() ?>asset/images/logo-basic.png" alt="homepage" class="dark-logo" width="150px" height="100px" /></span>
                     </a>
                 </div>
                 <!-- End Logo -->

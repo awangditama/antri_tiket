@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Antrian Pendaftaran Pasien Melinda</title>
+	<title>Antrian Pendaftaran SSC</title>
 	<?php $this->load->view('css'); ?>
 	<style type="text/css">
 	@media print {
@@ -22,7 +22,7 @@
 		<div class="col-md-8">
 			<div class="card-deck shadow-lg p-3 mb-5 bg-white rounded" id="print-antri">
 			  <div class="card">
-			      <div class="card-header text-center" style="font-size: 70px; font-weight: bold">RSIA MELINDA</div>
+			      <div class="card-header text-center" style="font-size: 70px; font-weight: bold">SSC ITTS</div>
 			  	<strong style="font-size: 370px; text-align: center;" id="no-antrian"><?= $nomor+1; ?></strong>
 			    <div class="card-body">
 			      <h5 class="card-title text-center" style="font-size: 50px; font-weight: bold">Terima Kasih Telah Menunggu</h5>
