@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="refresh" content="60">
 	<title>Antrian SSC ITTS</title>
 	<?php $this->load->view('css'); ?>
 	<style type="text/css">

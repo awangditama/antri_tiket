@@ -18,7 +18,7 @@ class Monitor extends CI_Controller {
 		$query = $this->db->query('SELECT max(nomor) as nomor,antrian.status as status, antrian.user_id as user_id, nama, loket_temp FROM antrian LEFT JOIN user ON antrian.user_id = user.user_id WHERE tanggal = "'.$tanggal.'" AND antrian.status = "servicing" AND antrian.user_id = '.$data['user_id']);	
 
 		if (in_array('null', $query->result_array())) {
-			
+			array_push($array_monitor, 'null');
 		}else{
 			array_push($array_monitor, $query->row());
 		}
