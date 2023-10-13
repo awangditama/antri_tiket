@@ -3,6 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Antrian extends CI_Controller {
 
+	public function __construct(){
+		parent::__construct();
+		$session_login = $this->session->userdata('isLogin');
+		$session_nama  = $this->session->userdata('nama');
+		if ($session_login != 'yes') {
+			redirect(site_url('login'));
+		}
+		//$this->load->model('model_admin');
+	}
+
 	public function index()
 	{
 

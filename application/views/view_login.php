@@ -63,7 +63,9 @@
 					alert('Komputer tidak terdaftar sebagai loket pendaftaran, segera hubungi admin');
 				}else if(response==3){
 					location.replace('<?= site_url('admin'); ?>');
-				}else{
+				}else if(response==4){
+				    location.replace('<?= site_url('antrian'); ?>');
+				}else{	
 					alert("Password atau username salah atau tidak terdaftar");
 				}
 			}

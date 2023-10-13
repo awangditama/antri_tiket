@@ -20,15 +20,19 @@ class Login extends CI_Controller
 			$data_session = array('nama' => $username, 'isLogin' => 'yes');
 			$this->session->set_userdata($data_session);
 			echo '3';
-		} else { //end of login admin hardcode
+		} else if($username == 'antritiket_ssc' and $password == '112233_ssc' ) {
+			$data_session = array('nama' => $username, 'isLogin' => 'yes');
+			$this->session->set_userdata($data_session);
+			echo '4';	
+		} else {  //end of login admin hardcode
 
-			$cek_ip = $this->db->query('SELECT no_loket, ip_address FROM loket');
-
-			$data_loket = $cek_ip->row();
-			$no_loket = $data_loket->no_loket;
 			$query_cek = $this->db->where(array('username' => $username))->where(array('password' => $password))->get('user');
 			if ($query_cek->num_rows() > 0) {
 				$data = $query_cek->row();
+				$loket = $this->db->query("SELECT no_loket FROM loket where loket_id='" . $data->user_id . "'");
+				$data_loket = $loket->row();
+				$no_loket = $data_loket->no_loket;
+
 				$data_session = array('nama' => $data->nama, 'isLogin' => 'yes', 'user_id' => $data->user_id, 'loket_temp' => $no_loket);
 				$this->session->set_userdata($data_session);
 				//update status jadi on user dan temp_loket
