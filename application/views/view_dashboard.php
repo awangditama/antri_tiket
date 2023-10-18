@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta http-equiv="refresh" content="60">
+	<meta http-equiv="refresh" content="30">
 	<title>Antrian SSC ITTS</title>
 	<?php $this->load->view('css'); ?>
 	<style type="text/css">
@@ -30,49 +30,51 @@
 	<audio id="ratus" src="<?= base_url('asset'); ?>/rekaman/ratus.wav"></audio>
 	<audio id="seratus" src="<?= base_url('asset'); ?>/rekaman/seratus.wav"></audio>
 	<audio id="suarabelloket1" src="<?= base_url('asset'); ?>/rekaman/<?= $this->session->userdata('loket_temp'); ?>.wav"></audio>
-	<div id="suara">
+	<div id="suara"></div>
+	<div class="container">
 
 	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-3">
-				<h3>Welcome,<strong><?= $this->session->userdata('nama'); ?></strong></h3>
-			</div>
-			<div class="col-md-3">
-				<br><br><br><br><br><br><br>
-				<div class="card-deck shadow-lg p-3 mb-5 bg-white rounded" id="print-antri">
-					<div class="card">
-						<div class="card-header text-center">Antrian SSC ITTS</div>
-						<strong style="font-size: 80px; text-align: center;" id="no-waiting"><?= $data_waiting->nomor; ?></strong>
-						<div class="card-body">
-							<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
+	<nav class="navbar navbar-light bg-light shadow justify-content-between">
+		<div class="container">
+			<h3 class="navbar-brand">Welcome,<strong><?= $this->session->userdata('nama'); ?></strong></h3>
+			<button type="button" class="btn btn-ssc" onclick="logout()">Logout</button>
+		</div>
+
+	</nav>
+	<section class="my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="card-deck p-3 bg-white rounded">
+						<div class="card">
+							<div class="card-header text-center color-primary-400 text-white font-weight-bold">Antrian SSC ITTS</div>
+							<h2 class="text-center" id="no-waiting" style="font-size: 7rem;"><?= $data_waiting->nomor; ?></h2>
+								<!-- <div class="card-body">
+									<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
+								</div> -->
+							<div class="card-footer bg-light text-center font-weight-bold" id="status-waiting">Menuggu dipanggil</div>
 						</div>
-						<div class="card-footer bg-transparent text-center" id="status-waiting"><?= ucfirst($data_waiting->status); ?></div>
 					</div>
 				</div>
-				<br>
-				<button type="button" onclick="panggil()" class="btn btn-lg btn-warning" style="width:100%;"> Panggil</button>
-			</div>
-			<div class="col-md-3">
-				<br><br><br><br><br><br><br>
-				<div class="card-deck shadow-lg p-3 mb-5 bg-white rounded" id="print-antri">
-					<div class="card">
-						<div class="card-header text-center">Antrian SSC ITTS</div>
-						<strong style="font-size: 80px; text-align: center;" id="no-servicing"><?= $data_servicing->nomor; ?></strong>
-						<div class="card-body">
-							<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
+				<div class="col-md-8">
+					<div class="card-deck p-3 bg-white rounded">
+						<div class="card">
+							<div class="card-header text-center color-primary-400 text-white font-weight-bold">Antrian SSC ITTS</div>
+							<h2 class="text-center" id="no-servicing" style="font-size: 7rem;"><?= $data_servicing->nomor; ?></h2>
+							<!-- <div class="card-body">
+								<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
+							</div> -->
+							<div class="card-footer bg-light text-center font-weight-bold" id="status-servicing">Sedang dilayani</div>
 						</div>
-						<div class="card-footer bg-transparent text-center" id="status-servicing"><?= ucfirst($data_servicing->status); ?></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 text-right">
-				<a href="javascript:void(0)" onclick="logout()">
-					<h3>Logout</h3>
-				</a>
+			<div class="text-center mt-4">
+				<button type="button" onclick="panggil()" class="btn btn-lg btn-ssc font-weight-bold" style="width: 100%;"> Panggil</button>
 			</div>
 		</div>
-	</div>
+	</section>
+
 	<?php $this->load->view('script'); ?>
 
 	<script type="text/javascript">
@@ -88,9 +90,9 @@
 						data_servicing = data.data_servicing;
 						data_waiting = data.data_waiting;
 						$("#no-waiting").html(data_waiting.nomor);
-						$("#status-waiting").html(data_waiting.status);
+						$("#status-waiting").html('Menuggu dipanggil');
 						$("#no-servicing").html(data_servicing.nomor);
-						$("#status-servicing").html(data_servicing.status);
+						$("#status-servicing").html('Sedang dilayani');
 						// $('#no-waiting').html(data.nomor);
 						// var nomor = parseInt(data_waiting.nomor-1);
 						mulai(data_servicing.nomor);
@@ -185,7 +187,6 @@
 				}, totalwaktu);
 				totalwaktu = totalwaktu + 1000;
 				setTimeout(function() {
-					suarabel0
 					document.getElementById('belas').pause();
 					document.getElementById('belas').currentTime = 0;
 					document.getElementById('belas').play();
@@ -214,236 +215,6 @@
 				}, totalwaktu);
 				totalwaktu = totalwaktu + 1000;
 
-			} else if (antrian == 100) {
-				//JIKA 10 MAKA MAIKAN SUARA SEPULUH
-				setTimeout(function() {
-					document.getElementById('seratus').pause();
-					document.getElementById('seratus').currentTime = 0;
-					document.getElementById('seratus').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-			} else if (antrian > 100 && antrian < 110) {
-				setTimeout(function() {
-					document.getElementById('seratus').pause();
-					document.getElementById('seratus').currentTime = 0;
-					document.getElementById('seratus').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-
-				setTimeout(function() {
-					document.getElementById('suarabel2').pause();
-					document.getElementById('suarabel2').currentTime = 0;
-					document.getElementById('suarabel2').play();
-				}, totalwaktu);
-
-				totalwaktu = totalwaktu + 1000;
-			} else if (antrian == 111) {
-				setTimeout(function() {
-					document.getElementById('seratus').pause();
-					document.getElementById('seratus').currentTime = 0;
-					document.getElementById('seratus').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-
-				//JIKA 11 MAKA MAIKAN SUARA SEBELAS
-				setTimeout(function() {
-					document.getElementById('sebelas').pause();
-					document.getElementById('sebelas').currentTime = 0;
-					document.getElementById('sebelas').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-
-			} else if (antrian > 111 && antrian < 120) {
-
-				setTimeout(function() {
-					document.getElementById('seratus').pause();
-					document.getElementById('seratus').currentTime = 0;
-					document.getElementById('seratus').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-
-				setTimeout(function() {
-					document.getElementById('suarabel2').pause();
-					document.getElementById('suarabel2').currentTime = 0;
-					document.getElementById('suarabel2').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-				setTimeout(function() {
-					suarabel0
-					document.getElementById('belas').pause();
-					document.getElementById('belas').currentTime = 0;
-					document.getElementById('belas').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-
-			} else if (antrian > 120 && antrian < 199) {
-				setTimeout(function() {
-					document.getElementById('seratus').pause();
-					document.getElementById('seratus').currentTime = 0;
-					document.getElementById('seratus').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-				setTimeout(function() {
-					document.getElementById('suarabel1').pause();
-					document.getElementById('suarabel1').currentTime = 0;
-					document.getElementById('suarabel1').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-				setTimeout(function() {
-					document.getElementById('puluh').pause();
-					document.getElementById('puluh').currentTime = 0;
-					document.getElementById('puluh').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-				setTimeout(function() {
-					document.getElementById('suarabel2').pause();
-					document.getElementById('suarabel2').currentTime = 0;
-					document.getElementById('suarabel2').play();
-				}, totalwaktu);
-				totalwaktu = totalwaktu + 1000;
-			} else if (antrian => 200 && antrian < 999) {
-				var digit1 = Math.floor(antrian / 100);
-				var digit2 = Math.floor((antrian % 100) / 10);
-				var digit3 = antrian % 10;
-				if (digit1 != 0 && digit2 == 0 && digit3 == 0) {
-					setTimeout(function() {
-						document.getElementById('suarabel0').pause();
-						document.getElementById('suarabel0').currentTime = 0;
-						document.getElementById('suarabel0').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('ratus').pause();
-						document.getElementById('ratus').currentTime = 0;
-						document.getElementById('ratus').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-				} else if (digit1 != 0 && digit2 == 0 && digit3 != 0) {
-					setTimeout(function() {
-						document.getElementById('suarabel0').pause();
-						document.getElementById('suarabel0').currentTime = 0;
-						document.getElementById('suarabel0').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('ratus').pause();
-						document.getElementById('ratus').currentTime = 0;
-						document.getElementById('ratus').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('suarabel2').pause();
-						document.getElementById('suarabel2').currentTime = 0;
-						document.getElementById('suarabel2').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-				} else if (digit1 != 0 && digit2 != 0 && digit3 == 0) {
-					setTimeout(function() {
-						document.getElementById('suarabel0').pause();
-						document.getElementById('suarabel0').currentTime = 0;
-						document.getElementById('suarabel0').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('ratus').pause();
-						document.getElementById('ratus').currentTime = 0;
-						document.getElementById('ratus').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('suarabel1').pause();
-						document.getElementById('suarabel1').currentTime = 0;
-						document.getElementById('suarabel1').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-					setTimeout(function() {
-						document.getElementById('puluh').pause();
-						document.getElementById('puluh').currentTime = 0;
-						document.getElementById('puluh').play();
-					}, totalwaktu);
-					totalwaktu = totalwaktu + 1000;
-				} else if (digit1 != 0 && digit2 != 0 && digit3 != 0) {
-					if (antrian == 211 || antrian == 311 || antrian == 411 || antrian == 511 || antrian == 611 || antrian == 711 || antrian == 811 || antrian == 911) {
-						setTimeout(function() {
-							document.getElementById('suarabel0').pause();
-							document.getElementById('suarabel0').currentTime = 0;
-							document.getElementById('suarabel0').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('ratus').pause();
-							document.getElementById('ratus').currentTime = 0;
-							document.getElementById('ratus').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-
-						//JIKA 11 MAKA MAIKAN SUARA SEBELAS
-						setTimeout(function() {
-							document.getElementById('sebelas').pause();
-							document.getElementById('sebelas').currentTime = 0;
-							document.getElementById('sebelas').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-
-					} else if (digit2 == 1) {
-						setTimeout(function() {
-							document.getElementById('suarabel0').pause();
-							document.getElementById('suarabel0').currentTime = 0;
-							document.getElementById('suarabel0').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('ratus').pause();
-							document.getElementById('ratus').currentTime = 0;
-							document.getElementById('ratus').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('suarabel2').pause();
-							document.getElementById('suarabel2').currentTime = 0;
-							document.getElementById('suarabel2').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						//JIKA 11 MAKA MAIKAN SUARA SEBELAS
-						setTimeout(function() {
-							document.getElementById('belas').pause();
-							document.getElementById('belas').currentTime = 0;
-							document.getElementById('belas').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-					} else {
-						setTimeout(function() {
-							document.getElementById('suarabel0').pause();
-							document.getElementById('suarabel0').currentTime = 0;
-							document.getElementById('suarabel0').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('ratus').pause();
-							document.getElementById('ratus').currentTime = 0;
-							document.getElementById('ratus').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('suarabel1').pause();
-							document.getElementById('suarabel1').currentTime = 0;
-							document.getElementById('suarabel1').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('puluh').pause();
-							document.getElementById('puluh').currentTime = 0;
-							document.getElementById('puluh').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-						setTimeout(function() {
-							document.getElementById('suarabel2').pause();
-							document.getElementById('suarabel2').currentTime = 0;
-							document.getElementById('suarabel2').play();
-						}, totalwaktu);
-						totalwaktu = totalwaktu + 1000;
-					}
-				}
 			} else {
 
 				//JIKA LEBIH DARI 100 
