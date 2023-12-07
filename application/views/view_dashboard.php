@@ -18,7 +18,7 @@
 	</style>
 </head>
 
-<body>
+<body class="bg-gradient-primary">
 	<audio id="suarabel" src="<?= base_url('asset'); ?>/Airport_Bell.mp3"></audio>
 	<audio id="suarabelnomorurut" src="<?= base_url('asset'); ?>/rekaman/nomor-urut.wav"></audio>
 	<audio id="suarabelsuarabelloket" src="<?= base_url('asset'); ?>/rekaman/loket.wav"></audio>
@@ -34,43 +34,55 @@
 	<div class="container">
 
 	</div>
-	<nav class="navbar navbar-light bg-light shadow justify-content-between">
+	<nav class="navbar navbar-light bg-white justify-content-between py-3 align-items-center">
 		<div class="container">
-			<h3 class="navbar-brand">Welcome,<strong><?= $this->session->userdata('nama'); ?></strong></h3>
-			<button type="button" class="btn btn-ssc" onclick="logout()">Logout</button>
+			<div class="d-flex align-items-center">
+				<img src="<?= base_url() ?>asset/images/logo-basic.png" alt="homepage" width="70px" height="40px" />
+				<h3 id="currentDate" class="navbar-brand mb-0 ml-3 py-0"></h3>
+			</div>
+			<div class="d-flex align-items-center">
+				<button type="button" id="clock" class="btn btn-ssc px-4 py-1 mr-2"></button>
+				<button type="button" class="btn btn-outline-ssc px-4 py-1" onclick="logout()">Logout</button>
+			</div>
+
 		</div>
 
 	</nav>
 	<section class="my-5">
 		<div class="container">
+			<h1 class="text-center mb-4 font-weight-normal">
+				<span class="font-weight-bold">Welcome, </span><?= $this->session->userdata('nama'); ?>
+			</h1>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="card-deck p-3 bg-white rounded">
-						<div class="card">
-							<div class="card-header text-center color-primary-400 text-white font-weight-bold">Antrian SSC ITTS</div>
-							<h2 class="text-center" id="no-waiting" style="font-size: 7rem;"><?= $data_waiting->nomor; ?></h2>
-								<!-- <div class="card-body">
+				<div class="col-md-5">
+					<div class="card" style="border-radius: 0.75rem;">
+						<div class="card-body p-0">
+							<div class="rounded py-3 text-center font-weight-semibold" style="font-size: 17px;">Nomor Antrian Pendaftaran :</div>
+							<hr class="border border-muted w-100 my-0">
+							<h2 class="text-center text-ssc" id="no-waiting" style="font-size: 9rem;"><?= $data_waiting->nomor; ?></h2>
+							<!-- <div class="card-body">
 									<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
 								</div> -->
-							<div class="card-footer bg-light text-center font-weight-bold" id="status-waiting">Menuggu dipanggil</div>
+							<div class="border-bottom-right-left color-primary-400 py-3 text-white text-center font-weight-bold" id="status-waiting" style="font-size: 21px;">Menuggu dipanggil</div>
 						</div>
+
 					</div>
+					<button type="button" onclick="panggil()" class="btn btn-lg btn-ssc font-weight-bold mt-3 w-100" style="font-size: 25px;"> Panggil</button>
 				</div>
-				<div class="col-md-8">
-					<div class="card-deck p-3 bg-white rounded">
-						<div class="card">
-							<div class="card-header text-center color-primary-400 text-white font-weight-bold">Antrian SSC ITTS</div>
-							<h2 class="text-center" id="no-servicing" style="font-size: 7rem;"><?= $data_servicing->nomor; ?></h2>
+				<div class="col-md-7">
+					<div class="card" style="border-radius: 1rem;">
+						<div class="card-body p-0">
+							<div class="rounded py-3 text-center font-weight-semibold" style="font-size: 17px;">Nomor Antrian Pendaftaran :</div>
+							<hr class="border border-muted w-100 my-0">
+							<h2 class="text-center text-ssc" id="no-servicing" style="font-size: 12.5rem;"><?= $data_servicing->nomor; ?></h2>
 							<!-- <div class="card-body">
 								<h5 class="card-title text-center">Terima Kasih Telah Menunggu</h5>
 							</div> -->
-							<div class="card-footer bg-light text-center font-weight-bold" id="status-servicing">Sedang dilayani</div>
+							<div class="border-bottom-right-left bg-cream py-3 text-ssc text-center font-weight-bold" id="status-servicing" style="font-size: 21px;">Sedang dilayani</div>
 						</div>
+
 					</div>
 				</div>
-			</div>
-			<div class="text-center mt-4">
-				<button type="button" onclick="panggil()" class="btn btn-lg btn-ssc font-weight-bold" style="width: 100%;"> Panggil</button>
 			</div>
 		</div>
 	</section>
@@ -78,6 +90,60 @@
 	<?php $this->load->view('script'); ?>
 
 	<script type="text/javascript">
+		// Function to format the date as "dddd, DD MMMM YYYY"
+		function formatDate(date) {
+			const options = {
+				weekday: 'long',
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric'
+			};
+			return new Date(date).toLocaleDateString('id-ID', options);
+		}
+
+		// Update the HTML element with the formatted date
+		function updateCurrentDate() {
+			const currentDateElement = document.getElementById('currentDate');
+			const currentDate = new Date();
+			const formattedDate = formatDate(currentDate);
+
+			// Extract the day from the formatted date
+			const day = formattedDate.split(',')[0].trim();
+
+			// Create HTML with the day in bold
+			const htmlContent = `<span class="font-weight-bold">${day}, </span><span>${formattedDate.slice(day.length + 1)}</span>`;
+
+			// Update the element with the formatted date
+			currentDateElement.innerHTML = htmlContent;
+		}
+
+		// Call the function to update the current date on page load
+		updateCurrentDate();
+
+		function updateClock() {
+			var date = new Date();
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+
+			// Add leading zeros if necessary
+			if (hours < 10) {
+				hours = "0" + hours;
+			}
+			if (minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if (seconds < 10) {
+				seconds = "0" + seconds;
+			}
+
+			// Set the clock display
+			document.getElementById("clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+		}
+
+		// Update the clock every second
+		setInterval(updateClock, 10);
+
 		function panggil() {
 
 			$.ajax({
